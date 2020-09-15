@@ -3,43 +3,25 @@
 
 <head>
     <title>Vending Machine Web App</title>
-    <link href="css/bootstrap.css" rel="stylesheet" />
-    <style>
-        .col-sm-4 {border: groove}  
-        #headerRow {text-align: center} 
-        #money-input {margin-left: 25%}
-    </style>
+	<link href="css/bootstrap.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
+	    <div class="container">
         <div class="row">
             <h1 id="headerRow">Vending Machine</h1>
         </div>
         <hr>
 
         <div class="row">
-            <div class="col-sm-8" id="vending-items">
-			
-				<div id="item 1" style="border:groove">
-				       
-					   1
-					   <br />
-					   Snickers
-					   <br />
-						$1.50
-					   <br />
-  					  <lable>quantity left:</lable>
-					  10
+            <div class="col-sm-6" id="vending-items"style="text-align: center; margin-bottom: 30px; margin-top 30px">
 
-				</div>
-
-            </div>
+			</div>
 
             <div class="col-sm-4">
                 <div class="form-group">
                     <h2 style="text-align: center">Total $ In</h2>
-                    <input type="text" class="form-control" id="money-input" style="width:50%" readonly/>
+                    <input type="text" class="form-control" id="money-input" style="width:50% " readonly/>
                     <button type="button" class="btn btn-default" id="add-dollar-button" style="width:49%">Add Dollar</button>
                     <button type="button" class="btn btn-default" id="add-quarter-button" style="width: 49%">Add Quarter</button>
                     <button type="button" class="btn btn-default" id="add-dime-button" style="width:49%">Add Dime</button>
@@ -77,14 +59,15 @@
                         class="btn btn-default col-sm-offset-4" id="return-change">Return Change</button>
                     </div>
                 </div>
-
-            </div>
         </div>
     </div>
+	</div>
+		<script src="js/jquery-2.2.4.min.js"></script>
+		<script src="js/Home.js"></script>
+	
+</body>	
+			
 
-    <script src="js/jquery-2.2.4.min.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/Home.js"></script>
-</body>
+		
 
-</html> 
+
