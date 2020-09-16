@@ -1,10 +1,8 @@
+var inputedMoney = 0;
 
-	
-	var inputedMoney = 0;
-$(document).ready(function(){
+$(document).ready(function () {
 
-
-   loadVendingItems();    
+    loadVendingItems();
 
     $('#add-dollar-button').on('click', function () {
         inputedMoney += 1;
@@ -53,12 +51,12 @@ function loadVendingItems() {
                 var price = item.price;
                 var quantity = item.quantity;
 
-                var vendingInfo = '<div class="vending-items col-sm-4" onclick="selectedItem('+ id +','+ name +')" role="button" id="item-'+ id +'" style="text-align: center; margin-bottom: 30px; margin-top 30px">';
+                var vendingInfo = '<button class="vending-items col-sm-4" onclick="selectedItem('+ id +','+ name +')" id="item-to-vend'+ id +'" style="text-align: center; margin-bottom: 30px; margin-top 30px">';
                 vendingInfo += '<p style ="text-align: left">' + id + '</p>';
                 vendingInfo += '<p><b>' + name + '</b></p>';
                 vendingInfo += '<p>$' + price + '</p>';
                 vendingInfo += '<p> Quantity Left: ' + quantity + '</p>';
-                vendingInfo += '</div>';
+                vendingInfo += '</button>';
                 vendingDiv.append(vendingInfo);
             });
         },
@@ -97,21 +95,21 @@ function makePurchase() {
             var dimes = returnMoney.dimes;
             var returnMessage = "";
             if (quarters != 0) {
-                returnMessage += quarters + ' Quarter/s ';              
+                returnMessage += quarters + ' Quarter/s ';
             }
             if (dimes != 0) {
-                returnMessage += dimes + ' Dime/s ';                     
+                returnMessage += dimes + ' Dime/s ';
             }
             if (nickels != 0) {
-                returnMessage += nickels + ' Nickel/s ';                 
+                returnMessage += nickels + ' Nickel/s ';
             }
             if (pennies != 0) {
-                returnMessage += pennies + ' Penny/ies ';              
+                returnMessage += pennies + ' Penny/ies ';
             }
             if (quarters == 0 && dimes == 0 && nickels == 0 && pennies == 0) {
-                returnMessage += "There is no change";                  
+                returnMessage += "There is no change";
             }
-            change.val(returnMessage);                                 
+            change.val(returnMessage);
             $('#money-input').val('');
             loadVendingItems();
             inputedMoney = 0;
@@ -140,20 +138,20 @@ function returnChange() {
     var vendingMessage = "";
 
     if (quarter != 0) {
-        returnMessage += quarter + ' Quarter/s ';    
-    }   
+        returnMessage += quarter + ' Quarter/s ';
+    }
     if (dime != 0) {
-        returnMessage += dime + ' Dime/s ';      
+        returnMessage += dime + ' Dime/s ';
     }
     if (nickel != 0) {
-        returnMessage += nickel + ' Nickel/s ';      
+        returnMessage += nickel + ' Nickel/s ';
     }
     if (penny != 0) {
-        returnMessage += penny + ' Penny/ies ';                   
+        returnMessage += penny + ' Penny/ies ';
     }
     if (quarter == 0 && dime == 0 && nickel == 0 && penny == 0) {
-        returnMessage += "There is no change.";   
-        vendingMessage = "No money was inputted.";             
+        returnMessage += "There is no change.";
+        vendingMessage = "No money was inputted.";
     } else {
         vendingMessage = "Transaction cancelled. Money inputted ($" + inputMoney + ") is returned through change.";
     }
@@ -163,6 +161,5 @@ function returnChange() {
     $('#vending-message').val(vendingMessage);
     $('#change-input-box').val(returnMessage);
     $('#item-to-vend').val('');
-    $('#money-input').val('');   
+    $('#money-input').val('');
 }
-})
