@@ -1,31 +1,31 @@
-var inputedMoney = 0;
+var paidMoney = 0;
 
 $(document).ready(function () {
 
     loadVendingItems();
 
     $('#add-dollar-button').on('click', function () {
-        inputedMoney += 1;
+        paidMoney += 1;
         messageBox("You added a Dollar");
-        updateMoneyBox(inputedMoney);
+        updateMoneyBox(paidMoney);
     });
 
     $('#add-quarter-button').on('click', function () {
-        inputedMoney += .25;
-        messageBox("You added a Quarter")
-        updateMoneyBox(inputedMoney);
+        paidMoney += .25;
+        messageBox("You added a Quarter");
+        updateMoneyBox(paidMoney);
     });
 
     $('#add-dime-button').on('click', function () {
-        inputedMoney += .10;
+        paidMoney += .10;
         messageBox("You added a Dime");
-        updateMoneyBox(inputedMoney);
+        updateMoneyBox(paidMoney);
     });
 
     $('#add-nickel-button').on('click', function () {
-        inputedMoney += .05;
-        messageBox("You added a Nickel")
-        updateMoneyBox(inputedMoney);
+        paidMoney += .05;
+        messageBox("You added a Nickel");
+        updateMoneyBox(paidMoney);
     });
 
     $('#purchase-button').click(function () {
@@ -50,8 +50,7 @@ function loadVendingItems() {
                 var name = item.name;
                 var price = item.price;
                 var quantity = item.quantity;
-
-                var vendingInfo = '<button class="vending-items col-sm-4" onclick="selectedItem('+ id +','+ name +')" id="item-to-vend'+ id +'" style="text-align: center; margin-bottom: 30px; margin-top 30px">';
+                var vendingInfo = '<button class="vending-items col-sm-4" onclick="selectedItem(id,name)" style="text-align: center; margin-bottom: 30px; margin-top 30px">';
                 vendingInfo += '<p style ="text-align: left">' + id + '</p>';
                 vendingInfo += '<p><b>' + name + '</b></p>';
                 vendingInfo += '<p>$' + price + '</p>';
@@ -66,8 +65,8 @@ function loadVendingItems() {
     });
 }
 
-function selectedItem(id, name) {
-    $('#item-to-vend').val(id + ": " + name);
+function selectedItem(id,name) {
+    $('#item-to-vend').val(id,name);
 }
 
 function messageBox(message) {
@@ -88,7 +87,7 @@ function makePurchase() {
         url: 'http://localhost:8080/money/' + money + '/item/' + item,
         success: function (returnMoney) {
             var change = $('#change-input-box');
-            $('#vending-message').val("Item vended. Thank you!");
+            $('#vending-message').val("Thank you!!!");
             var pennies = returnMoney.pennies;
             var nickels = returnMoney.nickels;
             var quarters = returnMoney.quarters;
@@ -112,17 +111,17 @@ function makePurchase() {
             change.val(returnMessage);
             $('#money-input').val('');
             loadVendingItems();
-            inputedMoney = 0;
+            paidMoney = 0;
         },
         error: function (error) {
-            var errorMessage = error.responseJSON.message;
+            var errorMessage = "SOLD OUT!!!!";
             messageBox(errorMessage);
         }
     });
 }
 
 function returnChange() {
-    var inputMoney = $('#money-input').val();
+    var paidMoney = $('#money-input').val();
     var money = $('#money-input').val();
 
     var quarter = Math.floor(money / 0.25);
@@ -153,10 +152,10 @@ function returnChange() {
         returnMessage += "There is no change.";
         vendingMessage = "No money was inputted.";
     } else {
-        vendingMessage = "Transaction cancelled. Money inputted ($" + inputMoney + ") is returned through change.";
+        vendingMessage = "Transaction cancelled.($" + paidMoney + ") is returned.";
     }
 
-    inputedMoney = 0;
+    paidMoney = 0;
     messageBox("");
     $('#vending-message').val(vendingMessage);
     $('#change-input-box').val(returnMessage);
