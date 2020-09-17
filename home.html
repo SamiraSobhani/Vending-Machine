@@ -6,7 +6,7 @@
     <link href="css/bootstrap.css" rel="stylesheet" />
     <style>
         .col-sm-4 {border: groove}
-        #money-input {margin-left: 25%}
+        #moneyInput {margin-left: 25%}
     </style>
 </head>
 
@@ -18,49 +18,49 @@
 <br/>
 <div class="container">
     <div class="row">
-        <div class="col-sm-8" id="vending-items">
+        <div class="col-sm-8" id="items">
         </div>
 
         <div class="col-sm-4">
             <div class="form-group">
                 <h2 style="text-align: center">Total $ In</h2>
-                <input type="text" class="form-control" id="money-input" style="width:50%" readonly/>
-                <button type="button" class="btn btn-default" id="add-dollar-button" style="width:49%">Add Dollar</button>
-                <button type="button" class="btn btn-default" id="add-quarter-button" style="width: 49%">Add Quarter</button>
-                <button type="button" class="btn btn-default" id="add-dime-button" style="width:49%">Add Dime</button>
-                <button type="button" class="btn btn-default" id="add-nickel-button" style="width:49%">Add Nickel</button>
+                <input type="text" class="form-control" id="moneyInput" style="width:50%" readonly/>
+                <button type="button" class="btn btn-default" id="addDollar" style="width:49%">Add Dollar</button>
+                <button type="button" class="btn btn-default" id="addQuarter" style="width: 49%">Add Quarter</button>
+                <button type="button" class="btn btn-default" id="addDime" style="width:49%">Add Dime</button>
+                <button type="button" class="btn btn-default" id="addNickel" style="width:49%">Add Nickel</button>
             </div>
             <hr>
 
             <div class="form-group">
                 <h2 style="text-align: center">Messages</h2>
-                <input type="text" class="form-control" id="vending-message" readonly/>
+                <input type="text" class="form-control" id="Message" readonly/>
                 <p></p>
                 <div class="form-group">
                     <form class="form-inline">
-                    <label for="vending-item" class="col-sm-2 label-control">Item:</label>
+                    <label for="item" class="col-sm-2 label-control">Item:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="item-to-vend" style="width:70%"readonly/>
+                        <input type="text" class="form-control" id="itemToVend" style="width:70%" readonly/>
                         <p></p>
                     </div>
                 </div>
                 <div class="form-group">
                     <button type="button"
                             class="btn btn-primary form-control col-sm-offset-1"
-                            id="purchase-button" style="width:100%">Make Purchase</button>
+                            id="purchaseButton" style="width:100%">Make Purchase</button>
                 </div>
             </div>
             <hr>
 
             <div class="form-group">
-                <h2 style="text-align:center" id="change-header">Change</h2>
+                <h2 style="text-align:center" id="change">Change</h2>
                 <div class="form-group">
                     <input type="text" class="form-control"
-                           id="change-input-box" style="width:100%" readonly/>
+                           id="changeBox" style="width:100%" readonly/>
                 </div>
                 <div class="form-group">
                     <button type="button"
-                            class="btn btn-default" id="return-change"style="width:100%">Return Change</button>
+                            class="btn btn-default" id="returnMoney"style="width:100%">Return Change</button>
                 </div>
             </div>
 

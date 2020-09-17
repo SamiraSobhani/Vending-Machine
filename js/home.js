@@ -2,92 +2,92 @@ var paidMoney = 0;
 
 $(document).ready(function () {
 
-    loadVendingItems();
-
-    $('#add-dollar-button').on('click', function () {
-        paidMoney += 1;
-        messageBox("You added a Dollar");
-        updateMoneyBox(paidMoney);
-    });
-
-    $('#add-quarter-button').on('click', function () {
-        paidMoney += .25;
-        messageBox("You added a Quarter");
-        updateMoneyBox(paidMoney);
-    });
-
-    $('#add-dime-button').on('click', function () {
-        paidMoney += .10;
-        messageBox("You added a Dime");
-        updateMoneyBox(paidMoney);
-    });
-
-    $('#add-nickel-button').on('click', function () {
-        paidMoney += .05;
-        messageBox("You added a Nickel");
-        updateMoneyBox(paidMoney);
-    });
-
-    $('#purchase-button').click(function () {
-        makePurchase();
-    });
-
-    $('#return-change').on('click', function () {
-        returnChange();
-    });
-})
+   loadVendingItems();
 
 function loadVendingItems() {
-    var vendingDiv = $('#vending-items');
+    var vendingDiv = $('#items');
     $.ajax({
-        type: 'GET',
-        url: 'http://localhost:8080/items',
-        success: function (vendingItemsArray) {
-            vendingDiv.empty();
+      type: 'GET',
+      url: 'http://localhost:8080/items',
+      success: function (vendingItemsArray) {
+         vendingDiv.empty();
 
-            $.each(vendingItemsArray, function (index, item) {
-                var id = item.id;
-                var name = item.name;
-                var price = item.price;
-                var quantity = item.quantity;
-                var vendingInfo = '<button class="vending-items col-sm-4" onclick="selectedItem(id,name)" style="text-align: center; margin-bottom: 30px; margin-top 30px">';
-                vendingInfo += '<p style ="text-align: left">' + id + '</p>';
-                vendingInfo += '<p><b>' + name + '</b></p>';
-                vendingInfo += '<p>$' + price + '</p>';
-                vendingInfo += '<p> Quantity Left: ' + quantity + '</p>';
-                vendingInfo += '</button>';
-                vendingDiv.append(vendingInfo);
-            });
-        },
-        error: function () {
+        $.each(vendingItemsArray, function (index, item) {
+             var id = item.id;
+             var name = item.name;
+             var price = item.price.toFixed(2);
+             var quantity = item.quantity;
+             var itemInfo = '<button class="items col-sm-4" onclick="selectedItem('+id+')" style="text-align: center; margin-bottom: 30px; margin-top 30px">';
+                 itemInfo += '<p style ="text-align: left">' + id + '</p>';
+                 itemInfo += '<p><b>' + name + '</b></p>';
+                 itemInfo += '<p>$' + price + '</p>';
+                 itemInfo += '<p> Quantity Left: ' + quantity + '</p>';
+                 itemInfo += '</button>';
+                    vendingDiv.append(itemInfo);
+                });
+            },
+            error: function () {
             alert("Failure Calling The Web Service. Please try again later.");
-        }
-    });
+   }
+ });
 }
 
-function selectedItem(id,name) {
-    $('#item-to-vend').val(id,name);
+$('#addDollar').on('click', function () {
+   paidMoney += 1;
+   messageBox("You added a Dollar.");
+   updateMoneyBox(paidMoney);
+});
+
+$('#addQuarter').on('click', function () {
+   paidMoney += .25;
+   messageBox("You added a Quarter.");
+   updateMoneyBox(paidMoney);
+});
+
+$('#addDime').on('click', function () {
+   paidMoney += .10;
+   messageBox("You added a Dime.");
+   updateMoneyBox(paidMoney);
+});
+
+$('#addNickel').on('click', function () {
+   paidMoney += .05;
+   messageBox("You added a Nickel.");
+   updateMoneyBox(paidMoney);
+});
+
+$('#purchaseButton').click(function () {
+  makePurchase();
+});
+
+$('#returnMoney').on('click', function () {
+  Return();
+});
+})
+
+function selectedItem(id) {
+    $('#itemToVend').val(id);
 }
 
 function messageBox(message) {
-    $('#vending-message').val(message);
+    $('#Message').val(message);
 }
 
 function updateMoneyBox(money) {
-    $('#money-input').empty();
-    $('#money-input').val(money.toFixed(2));
+    $('#moneyInput').empty();
+    $('#moneyInput').val(money.toFixed(2));
 }
 
 function makePurchase() {
-    var money = $('#money-input').val();
-    var item = $('#item-to-vend').val();
+    var money = $('#moneyInput').val();
+    var item = $('#itemToVend').val();
 
     $.ajax({
         type: 'GET',
         url: 'http://localhost:8080/money/' + money + '/item/' + item,
         success: function (returnMoney) {
-            var change = $('#change-input-box');
-            $('#vending-message').val("Thank you!!!");
+            var change = $('#changeBox');
+            $('#Message').val("Thank you!!!");
             var pennies = returnMoney.pennies;
             var nickels = returnMoney.nickels;
             var quarters = returnMoney.quarters;
@@ -109,7 +109,7 @@ function makePurchase() {
                 returnMessage += "There is no change";
             }
             change.val(returnMessage);
-            $('#money-input').val('');
+            $('#moneyInput').val('');
             loadVendingItems();
             paidMoney = 0;
         },
@@ -120,9 +120,9 @@ function makePurchase() {
     });
 }
 
-function returnChange() {
-    var paidMoney = $('#money-input').val();
-    var money = $('#money-input').val();
+function Return() {
+    var paidMoney = $('#moneyInput').val();
+    var money = $('#moneyInput').val();
 
     var quarter = Math.floor(money / 0.25);
     money = (money - quarter * 0.25).toFixed(2);
@@ -157,8 +157,8 @@ function returnChange() {
 
     paidMoney = 0;
     messageBox("");
-    $('#vending-message').val(vendingMessage);
-    $('#change-input-box').val(returnMessage);
-    $('#item-to-vend').val('');
-    $('#money-input').val('');
+    $('#Message').val(vendingMessage);
+    $('#changeBox').val(returnMessage);
+    $('#itemToVend').val('');
+    $('#moneyInput').val('');
 }
